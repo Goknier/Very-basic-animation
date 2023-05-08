@@ -1,0 +1,138 @@
+import simplegui
+
+import random
+
+x = 300
+
+y = 0
+
+a = .01
+
+h = 300
+
+k = 200
+
+counter = 0
+
+frameWidth = 600
+
+def sprinkle_handler(canvas):
+    
+    for i in range (1, 600):
+       
+        r = random.randint(0,255)
+        g = random.randint(0,255)
+        b = random.randint(0,255)
+    
+        randRGBColor = "RGB( " + str(r) + "," + str(g) + "," + str(b) + ")"     
+       
+        j = random.randint(2, frameWidth)
+        f = random.randint(2, frameWidth)
+
+        canvas.draw_point((j, f), randRGBColor)
+
+def cream_handler(canvas):
+    
+    global xcord
+    
+    global ycord
+    
+    global xcord2
+    
+    global ycord2
+
+    xcord = 350
+   
+    ycord = 250
+    
+    xcord2 = 250
+    
+    ycord2 = 350
+        
+    for i in range(4):
+        
+        
+        ycord = ycord - 50
+        
+        xcord = xcord + 50
+        
+        ycord2 = ycord2 + 50
+        
+        xcord2 = xcord2 - 50
+        
+        canvas.draw_polygon(((300, ycord), (xcord, 300), (300, ycord2) , (xcord2, 300), (300, ycord)), 5, "blue")
+        
+def draw_handler(canvas):
+    
+    sprinkle_handler(canvas)
+    
+    cream_handler(canvas)
+    
+    global x
+    
+    global y 
+    
+    global a
+    
+    global h
+    
+    global k
+    
+    global counter
+    
+    x = x -1
+    
+    y = a*((x-h)**2)+k
+    
+    if(counter < 145):
+        
+        canvas.draw_circle((x, y ), 50, 1,"black", "pink")
+        
+        counter = counter + 1
+    
+        canvas.draw_polygon([(0, 600), (600, 600), (600, 450), (0, 450)], 1, "black" , " lightgreen" )
+    else:
+        canvas.draw_polygon([(0, 600), (600, 600), (600, 450), (0, 450)], 1, "black" , " pink" )
+    
+
+    canvas.draw_circle((300, 270), 50, 1,"black", "red")
+    
+    canvas.draw_line((300, 270), (300, 280), 1, "green")
+    
+    canvas.draw_line((310, 290), (320, 300), 1, "blue")
+
+    canvas.draw_line((280, 290), (270, 300), 1, "yellow")
+    
+    canvas.draw_line((330, 250), (320, 270), 1, "black")
+
+    canvas.draw_line((250, 250), (270, 270), 1, "pink")
+
+    
+    canvas.draw_circle((570, 0), 150, 1,"yellow", "yellow")
+    
+    canvas.draw_circle((100, 0), 50, 1,"black", "white")
+  
+    canvas.draw_circle((150, 0), 50, 1,"black", "white")
+    
+    canvas.draw_circle((225, 0), 50, 1,"black", "white")
+
+    canvas.draw_polygon([(250, 300), (350, 300), (300, 500)], 1, "black", "brown")
+    
+    canvas.draw_polygon([(590, 125), (570, 175), (540, 125)], 1, "yellow", "yellow")
+
+    canvas.draw_polygon([(425, 100), (450, 75), (470, 100)], 1, "yellow", "yellow")
+    
+    canvas.draw_polygon([(400, 20), (450, 10), (420, 25)], 1, "yellow", "yellow")
+
+    if x > 650:
+
+        x = 300
+
+    if y > 650:
+        
+        y = 300
+
+frame = simplegui.create_frame('Animation', 600, 600)
+frame.set_canvas_background("lightblue")
+frame.set_draw_handler(draw_handler)
+frame.start()
